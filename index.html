@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kuiz Best: Solat Jumaat — 2 OLI</title>
+<style>
+:root{--ink:#463326;--pink:#f4779c;--cream:#fff9ef;--green:#27865d;--gold:#efc84a}
+*{box-sizing:border-box}body{margin:0;padding:18px;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(135deg,#ffe1d0,#f7dce9,#dcefe5)}
+main{max-width:780px;margin:auto}.card{background:var(--cream);border:4px solid var(--ink);border-radius:25px;padding:22px;margin:14px 0;box-shadow:0 6px 0 #d7bba3}
+h1{text-align:center;color:#e75e8b;font-size:clamp(1.7rem,5vw,2.5rem);margin:8px 0}h2{text-align:center}.subtitle{text-align:center;font-weight:bold;margin-bottom:20px}
+label{display:block;margin:13px 0 6px;font-weight:bold}input{width:100%;padding:12px;border:2px solid #72523e;border-radius:10px;font-size:1rem}
+button{padding:12px 16px;border:3px solid var(--ink);border-radius:12px;background:var(--pink);color:white;font-weight:bold;font-size:1rem;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.primary{width:100%;margin-top:16px}.hidden{display:none!important}
+.small{font-size:.92rem;line-height:1.5;color:#72523e}.top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:bold}.pill{background:white;border:2px solid var(--ink);border-radius:20px;padding:7px 10px}
+.progress{height:12px;background:#ead9ca;border-radius:10px;overflow:hidden;margin:14px 0}.progress span{display:block;height:100%;background:var(--green);width:0}
+.q{font-size:1.15rem;font-weight:bold;line-height:1.5;margin:12px 0}.instruction{font-size:.92rem;color:#72523e}.opt{display:block;width:100%;margin:9px 0;background:white;color:var(--ink);text-align:left;box-shadow:none}.opt.selected{background:#fff0b5}.opt.correct{background:#d9f4e6!important;border-color:#18865b}.opt.wrong{background:#ffe0e6!important;border-color:#c03955}
+.feedback{padding:13px;background:#fff0d8;border-radius:12px;margin:12px 0;line-height:1.5}.row{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:16px}
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0}.stats div{background:white;border:2px solid var(--ink);border-radius:10px;padding:12px;min-width:105px;text-align:center}
+.certificate{text-align:center;background:#fffdf7;border:7px double #a77a34;padding:25px}.certificate h2{color:#a96c2c;font-size:2rem}.name{font-size:clamp(1.4rem,5vw,2rem);color:#e85e8b;font-weight:bold;margin:18px 0}
+@media print{body{background:white;padding:0}.no-print{display:none!important}.card{border:0;box-shadow:none}.certificate{min-height:88vh;display:flex;flex-direction:column;justify-content:center}}
+</style></head>
+<body><main>
+<section class="card" id="start">
+<div style="text-align:center;font-size:3rem">🕌 ⭐ 📚</div>
+<h1>Kuiz Best: Solat Jumaat</h1><div class="subtitle">Pendidikan Islam · Kelas 2 OLI</div>
+<p style="text-align:center">Uji kefahaman tentang syarat wajib, syarat sah dan adab menunaikan solat Jumaat.</p>
+<label for="student">Nama murid</label><input id="student" placeholder="Masukkan nama murid">
+<label for="className">Kelas</label><input id="className" value="2 OLI" placeholder="Contoh: 2 OLI">
+<button class="primary" id="startBtn">🚀 Mula Kuiz</button>
+<p class="small">10 soalan. Soalan 6 membenarkan lebih daripada satu jawapan. Pilih semua jawapan yang tepat sebelum menekan “Semak jawapan”.</p>
+</section>
+<section class="card hidden" id="game">
+<div class="top"><span id="studentLabel"></span><span class="pill">⭐ <span id="score">0</span> mata</span><span class="pill" id="count"></span></div>
+<div class="progress"><span id="bar"></span></div><div class="q" id="question"></div><div class="instruction" id="instruction"></div><div id="options"></div>
+<div id="feedback" class="feedback hidden" aria-live="polite"></div>
+<div class="row"><button id="checkBtn">Semak jawapan</button><button id="nextBtn" disabled>Soalan seterusnya ➜</button></div>
+</section>
+<section class="card hidden" id="result">
+<div style="text-align:center;font-size:2.6rem">🏆 ✨ 🏆</div><h1>Kuiz Selesai!</h1><p id="resultMessage" style="text-align:center"></p>
+<div class="stats"><div>⭐<br><b id="finalScore"></b><br>Mata</div><div>🎯<br><b id="accuracy"></b><br>Ketepatan</div><div>📘<br><b id="correctCount"></b><br>Betul</div></div>
+<h3 id="rank" style="text-align:center"></h3><button class="primary no-print" id="certificateBtn">📜 Papar Sijil Pencapaian</button><button class="primary no-print" id="retryBtn" style="background:#27865d">Cuba sekali lagi</button>
+</section>
+<section class="card hidden" id="certPanel"><div class="certificate">
+<div style="font-size:3rem">🕌 ⭐ 🏆</div><h2>SIJIL PENCAPAIAN</h2><h3>KUIZ BEST: SOLAT JUMAAT</h3><p>Dianugerahkan kepada</p><div class="name" id="certName"></div><p id="certClass"></p><p>kerana telah menyertai kuiz Pendidikan Islam dan menunjukkan kefahaman tentang solat Jumaat.</p>
+<div class="stats"><div>⭐<br><b id="certScore"></b><br>Mata</div><div>🎯<br><b id="certAccuracy"></b><br>Ketepatan</div></div><h3 id="certRank"></h3><p id="certDate"></p><p>Semoga terus menuntut ilmu dan mengamalkan adab yang baik.</p></div>
+<div class="row no-print"><button style="background:#27865d" onclick="window.print()">🖨️ Cetak / Simpan PDF</button><button onclick="document.getElementById('certPanel').classList.add('hidden')">Tutup sijil</button></div>
+<p class="small no-print">Untuk menyimpan PDF, pilih “Save as PDF / Simpan sebagai PDF” dalam tetingkap cetakan.</p></section>
+</main>
+<script>
+const questions=[
+{q:"Apakah maksud syarat wajib solat Jumaat?",type:"single",o:["Syarat yang menentukan bilangan rakaat solat","Syarat yang menentukan waktu solat Maghrib","Syarat yang menentukan seseorang diwajibkan menunaikannya","Syarat yang menentukan bacaan surah selepas al-Fatihah"],a:[2],e:"Syarat wajib menentukan individu yang dituntut menunaikan solat Jumaat."},
+{q:"Antara berikut, yang manakah syarat wajib solat Jumaat yang biasa dipelajari dalam Pendidikan Islam?",type:"single",o:["Datang bersama ahli keluarga","Memakai pakaian berwarna putih","Islam","Memakai wangian"],a:[2],e:"Islam ialah antara syarat wajib solat Jumaat yang dipelajari dalam asas fiqah."},
+{q:"Dalam pembelajaran asas fiqah, yang manakah termasuk dalam syarat wajib solat Jumaat?",type:"single",o:["Menjadi imam masjid","Menghafaz seluruh al-Quran","Baligh","Ayah dan anak-anak lelaki"],a:[2],e:"Baligh ialah antara syarat wajib solat Jumaat."},
+{q:"Apakah perbezaan utama antara syarat wajib dengan syarat sah solat Jumaat?",type:"single",o:["Syarat wajib berkaitan orang yang dituntut; syarat sah berkaitan kesahan pelaksanaan solat","Syarat wajib menentukan khutbah; syarat sah menentukan hari cuti","Kedua-duanya mempunyai maksud yang sama sepenuhnya","Syarat wajib hanya berkaitan pakaian; syarat sah hanya berkaitan umur"],a:[0],e:"Syarat wajib berkaitan individu yang dituntut menunaikan solat, manakala syarat sah berkaitan perkara yang memastikan pelaksanaannya sah."},
+{q:"Solat Jumaat dilaksanakan pada hari apakah?",type:"single",o:["Jumaat","Ahad","Rabu","Isnin"],a:[0],e:"Solat Jumaat ditunaikan pada hari Jumaat."},
+{q:"Pilih semua pernyataan yang tepat tentang pembelajaran syarat wajib dan syarat sah solat Jumaat.",type:"multi",o:["Syarat wajib berkaitan individu yang dituntut menunaikan solat Jumaat","Syarat sah berkaitan keadaan pelaksanaan solat Jumaat supaya sah","Syarat wajib dan syarat sah membawa maksud yang sama","Memakai warna pakaian tertentu ialah syarat wajib solat Jumaat"],a:[0,1],e:"Syarat wajib berkaitan orang yang dituntut; syarat sah berkaitan kesahan pelaksanaan. Kedua-duanya tidak sama maksud."},
+{q:"Syarat wajib solat Jumaat dan syarat sah solat Jumaat mempunyai fungsi yang berbeza.",type:"tf",o:["Betul","Salah"],a:[0],e:"Betul. Syarat wajib menentukan siapa yang dituntut, manakala syarat sah berkaitan kesahan pelaksanaan."},
+{q:"Membawa sejadah sendiri merupakan syarat wajib solat Jumaat bagi setiap Muslim lelaki.",type:"tf",o:["Betul","Salah"],a:[1],e:"Salah. Membawa sejadah sendiri bukan syarat wajib solat Jumaat."},
+{q:"Apakah tindakan terbaik jika murid keliru antara syarat wajib dengan syarat sah solat Jumaat?",type:"single",o:["Mengabaikan semua syarat","Menghafal tajuk sahaja tanpa memahami maksud","Merujuk nota dan mengelaskan setiap pernyataan mengikut fungsinya","Memilih jawapan secara rawak"],a:[2],e:"Merujuk nota dan mengelaskan pernyataan mengikut fungsi membantu murid memahami perbezaan kedua-dua jenis syarat."},
+{q:"Apakah contoh amalan beradab dalam membuat persediaan menunaikan solat Jumaat?",type:"single",o:["Mengganggu jemaah ketika khutbah","Menjaga kebersihan, berpakaian sopan dan menghormati jemaah lain","Tidur semasa khutbah berlangsung","Sengaja datang untuk mengganggu"],a:[1],e:"Menjaga kebersihan, berpakaian sopan dan menghormati jemaah ialah contoh adab yang baik."}
+];
+let i=0,score=0,correct=0,studentName="",className="",locked=false;
+const $=id=>document.getElementById(id),show=id=>$(id).classList.remove("hidden"),hide=id=>$(id).classList.add("hidden");
+$("startBtn").onclick=()=>{studentName=$("student").value.trim();className=$("className").value.trim()||"2 OLI";if(!studentName){alert("Sila masukkan nama murid dahulu.");$("student").focus();return}i=0;score=0;correct=0;hide("start");hide("result");hide("certPanel");show("game");$("studentLabel").textContent=studentName;render()};
+function render(){locked=false;const q=questions[i];$("count").textContent=`Soalan ${i+1}/${questions.length}`;$("score").textContent=score;$("bar").style.width=(i/questions.length*100)+"%";$("question").textContent=q.q;$("instruction").textContent=q.type==="multi"?"Pilih semua jawapan yang tepat.":"Pilih satu jawapan.";if(q.type==="tf")$("instruction").textContent="Pilih Betul atau Salah.";const box=$("options");box.innerHTML="";hide("feedback");$("checkBtn").disabled=false;$("nextBtn").disabled=true;$("nextBtn").textContent=i===questions.length-1?"Lihat keputusan 🏆":"Soalan seterusnya ➜";q.o.forEach((v,j)=>{const b=document.createElement("button");b.className="opt";b.dataset.index=j;b.textContent=(q.type==="tf"?"":String.fromCharCode(65+j)+". ")+v;b.onclick=()=>{if(locked)return;if(q.type!=="multi"){[...box.children].forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}else b.classList.toggle("selected")};box.appendChild(b)})}
+$("checkBtn").onclick=()=>{if(locked)return;const q=questions[i],chosen=[...$("options").children].filter(b=>b.classList.contains("selected")).map(b=>Number(b.dataset.index));if(!chosen.length){alert("Sila pilih jawapan dahulu.");return}locked=true;const right=chosen.length===q.a.length&&chosen.every(x=>q.a.includes(x));[...$("options").children].forEach((b,j)=>{b.disabled=true;if(q.a.includes(j))b.classList.add("correct");if(chosen.includes(j)&&!q.a.includes(j))b.classList.add("wrong")});if(right){score+=10;correct++} $("score").textContent=score;$("feedback").textContent=(right?"Betul! +10 mata. ":"Belum tepat. ")+q.e;show("feedback");$("checkBtn").disabled=true;$("nextBtn").disabled=false};
+$("nextBtn").onclick=()=>{if(!locked)return;if(i<questions.length-1){i++;render()}else finish()};
+function finish(){hide("game");show("result");const pct=Math.round(correct/questions.length*100),rank=pct===100?"CEMERLANG — JUARA SOLAT JUMAAT":pct>=80?"SANGAT BAIK — PEJUANG ILMU":pct>=50?"BAIK — TERUS BERLATIH":"PENEROKA ILMU";$("resultMessage").textContent=`Tahniah, ${studentName}! Anda telah melengkapkan 10 soalan.`;$("finalScore").textContent=score+" / 100";$("accuracy").textContent=pct+"%";$("correctCount").textContent=correct+"/10";$("rank").textContent="🏅 "+rank;$("certName").textContent=studentName.toUpperCase();$("certClass").textContent="Kelas: "+className;$("certScore").textContent=score+" / 100";$("certAccuracy").textContent=pct+"%";$("certRank").textContent=rank;$("certDate").textContent="Tarikh: "+new Date().toLocaleDateString("ms-MY");$("bar").style.width="100%"}
+$("certificateBtn").onclick=()=>show("certPanel");$("retryBtn").onclick=()=>{hide("result");hide("certPanel");show("start");$("student").value=studentName;$("className").value=className};
+</script></body></html>
